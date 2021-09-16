@@ -27,8 +27,7 @@ var config = {
   method: "get",
   url: "https://api.estadisticasbcra.com/uva",
   headers: {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjIyMTU1OTUsInR5cGUiOiJleHRlcm5hbCIsInVzZXIiOiJjb3NlY2hhc2lzdGVtYUBnbWFpbC5jb20ifQ.xwawKXq6XsrAI8K-eUKb7LbFtFvR71axWaOIPg2ryoc3Oc8DXmzKhRRLXwa-65hHg8Rl5BLa5kYS6A7XKV9-IA",
+    Authorization: process.env.rest_bcra_authorization,
   },
 };
 
