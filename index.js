@@ -13,6 +13,7 @@ var con = mysql.createConnection({
 });
 
 var delay_1_hour = 60 * 60 * 1000; // 1 hour in msec
+var delay_60_second = 60 * 1000; // 20 segundos
 
 // para ver si se establecio la conexion
 con.connect(function (err) {
@@ -31,14 +32,16 @@ var config = {
   },
 };
 
-axios(config)
-  .then(function (response) {
-    // console.log(JSON.stringify(response.data));
-    response.data.forEach(grabarMysql);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+function callApi() {
+  axios(config)
+    .then(function (response) {
+      // console.log(JSON.stringify(response.data));
+      response.data.forEach(grabarMysql);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+}
 
 function grabarMysql(item, index) {
   // id de mercado pago
@@ -56,7 +59,10 @@ function grabarMysql(item, index) {
   // "INSERT IGNORE INTO node_mercado_pago SET ?",
   con.query("REPLACE INTO tmpuva SET ?", valores, (err, res) => {
     if (err) throw err;
-    console.log("Last insert ID:", res.insertId);
+    // console.log("Last insert ID:", res.insertId);
+    // console.log("Last insert ID:", err);
+    console.log("Ultima fecha API Cargada: ", fecha);
+    console.log("Ultima VALOR UVA  Cargado: ", uva_valor);
   });
 }
 
@@ -75,12 +81,14 @@ setInterval(function () {
 // **** Para que se llame Cada hora ***
 // ***************************************************
 setInterval(function () {
-  axios(config)
+  callApi();
+
+  /*   axios(config)
     .then(function (response) {
       // console.log(JSON.stringify(response.data));
       response.data.forEach(grabarMysql);
     })
     .catch(function (error) {
       console.log(error);
-    });
+    }); */
 }, delay_1_hour);
