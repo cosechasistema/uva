@@ -69,7 +69,7 @@ setInterval(function () {
     if (err) throw err;
     // console.log('Cada 15 segundos: The solution is: ', result[0].solution);
   });
-}, 15000);
+}, 55000);
 
 // ***************************************************
 // **** Para que se llame Cada hora ***
